@@ -1,0 +1,20 @@
+<ion-view title="Bebidas">
+	<ion-content>
+	
+	<div class="buttons">
+       <button class="button button-icon icon ion-ios-minus-outline"
+          ng-click="data.showDelete = !data.showDelete"></button>
+	</div>
+
+
+    <ion-list  show-delete="data.showDelete">
+		<ion-item ng-repeat="bebida in bebidas" href="#/app/detalhar/{{bebida.id}}">
+		    <ion-delete-button class="ion-minus-circled" 
+		             ng-click="onItemDelete(bebida)">
+				</ion-delete-button>
+				<ion-option-button class="button-calm" ng-click="abriActionSheet()">Compartilhar</ion-option-button>
+			{{bebida.nome}} - {{bebida.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+		 </ion-item>
+	</ion-list>
+    </ion-content>
+</ion-view>

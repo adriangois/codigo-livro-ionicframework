@@ -1,0 +1,217 @@
+<ion-view title="Conta">
+  <!-- <ion-content>
+        <div class="card">
+          <div class="item txt-centralizado">
+            <div class="row">
+                <div class="col">
+                  Quantidade
+                </div>
+                <div class="col">
+                  Item
+                </div>
+                <div class="col">
+                  Valor
+                </div>
+            </div>
+            <input type="number" ng-change="onChangeDivisao()" ng-model="numeroPessoas.valor"/>
+            {{totalDividido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+            <ion-list ng-repeat="it in bandeja" >
+              <ion-radio  ng-value="bandeja.indexOf(it)" 
+                          ng-model="data.item">
+                 <div class="row">
+                  <div class="col">
+                   {{it.quantidade}} 
+                  </div>
+                  <div class="col">
+                    {{it.item.nome}}
+                  </div>
+                  <div class="col">
+                    {{it.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                  </div>
+                 </div>
+              </ion-radio>
+            </ion-list>
+            <br />
+          </div>
+          <div class="margem-imagem"></div>
+        </div>
+        <div class="bar bar-footer">
+          <div class="button-bar">
+           <button class="button  button-positive"  ng-click="pedir()"><i class=" ion-ios-checkmark-outline"></i></button>
+           <button class="button  button-dark"  ng-click="editarItem()"><i class="ion-edit"></i></button>
+           <button class="button" ng-click="removerItem()"><i class="ion-ios-trash-outline"></i></button>
+           <button class="button  button-assertive"  ng-click="fechaModal()"><i class="ion-ios-undo-outline"></i></button>
+          </div>
+        </div>
+  </ion-content> -->
+  <ion-content>
+        <div class="card">
+          <div class="item txt-centralizado">
+            <div class="row">
+                <div class="col">
+                  Quantidade
+                </div>
+                <div class="col">
+                  Item
+                </div>
+                <div class="col">
+                  Valor
+                </div>
+            </div>
+
+            <ion-list ng-repeat="it in historicoPedidos">
+                  <div class="row">
+                    <div class="col">
+                     {{it.quantidade}} 
+                    </div>
+                    <div class="col">
+                      {{it.item.nome}}
+                    </div>
+                    <div class="col">
+                    {{it.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                  </div>
+                 </div>
+            </ion-list>
+            <br />
+            <div class="row">
+              <h2>Total: {{conta.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}</h2>
+            </div>
+            <div class="row">
+              Opcional(10%): {{conta.porcentagem.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+            </div>
+            <div class="row">
+              <h2>Subtotal: {{conta.subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}</h2>
+            </div>
+            <br />
+            <div class="row">
+                Informe abaixo a quantidade de pessoas
+            </div>
+            <div class="row">
+              <div class="col item item-input col-25">  
+                <input type="number" ng-model="conta.quantidadePessoa"/>
+              </div>
+              <div class="col">
+                <p><h2>Valor por pessoa: {{(conta.subtotal / conta.quantidadePessoa).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}</h2></p>
+              </div>
+            </div>
+   
+          <div class="margem-imagem"></div>
+          </div>
+        </div><!-- Fecha o Card -->
+        <!-- Botões para fechar a conta --> 
+        <div class="bar bar-footer">
+          <div class="button-bar">
+             <button class="button  button-positive" ng-click="modalPagarConta.show()">Pagar</button>
+             <button class="button  button-assertive"  ng-click="modalFecharConta.show()">Fechar</i></button>
+          </div>
+        </div>
+
+        <script id="modal-fechar-conta.html" type="text/ng-template">
+          <ion-modal-view>
+            <ion-content>
+              <div class="card">
+                    <br />
+                    <div class="row">
+                      <div class="col col-offset-25">
+                        <h1>Obrigado!</h1>
+                      </div>
+                    </div>
+                    <div class="margem-imagem"></div>
+                    <div class="txt-centralizado">Em breve o garçon levará sua conta!</div>
+                    <div class="margem-imagem"></div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Total: {{conta.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Opcional(10%): {{conta.porcentagem.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Subtotal: {{conta.subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <br />
+                  <div class="row">
+                    <div class="col col-offset-33">
+                      <button type="button" class="button button-positive button-block" ng-click="modalFecharConta.hide()">Voltar</button>
+                    </div>
+                    <div class="col"></div>
+                  </div>
+              </div>
+            </ion-content>
+          </ion-modal-view>
+        </script>
+
+        <!-- Modal pagar conta -->
+        <script id="modal-pagar-conta.html" type="text/ng-template">
+          <ion-modal-view>
+            <ion-content>
+              <div class="card">
+                    <div class="margem-imagem"></div>
+                    <div class="row">
+                      <div class="col-offset-25"><h3>Dados do cartão</h3></div>
+                    </div>
+
+                    <div class="list">
+                      <label class="item item-input item-floating-label">
+                        <span class="input-label">Nome no Cartão</span>
+                        <input type="text" placeholder="Nome no Cartão">
+                      </label>
+                      <label class="item item-input item-floating-label">
+                        <span class="input-label">Número do Cartão</span>
+                        <input type="number" placeholder="Número do Cartão">
+                      </label>
+                      <label class="item item-input item-floating-label">
+                        <span class="input-label">Código de Segurança</span>
+                        <input type="number" placeholder="Código de Segurança">
+                      </label>
+                      <label class="item item-input item-floating-label">
+                        <span class="input-label">CPF</span>
+                        <input type="number" placeholder="CPF">
+                      </label>
+                      <label class="item item-input item-floating-label">
+                        <span class="input-label">Valor a pagar</span>
+                        <input type="number" placeholder="Valor a pagar" ng-model="conta.valorPagar">
+                      </label>
+                    </div>
+               
+
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Total: {{conta.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Opcional(10%): {{conta.porcentagem.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Subtotal: {{conta.subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-offset-33">
+                        Restante: {{(conta.subtotal - conta.valorPagar).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                      </div>
+                    </div>  
+                  <div class="row">
+                    <div class="col">
+                      <button type="button" class="button button-positive button-block" ng-click="pagar()">Pagar</button>
+                    </div>
+                    <div class="col">
+                      <button type="button" class="button button-positive button-block" ng-click="modalPagarConta.hide()">Voltar</button>
+                    </div>
+                  </div>
+              </div>
+            </ion-content>
+          </ion-modal-view>
+        </script>
+    </ion-content>
+</ion-view>
+

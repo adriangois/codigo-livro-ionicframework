@@ -1,0 +1,62 @@
+
+<ion-view>
+  <ion-content>
+  <!-- Modal -->
+    <script id="my-modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-content>
+        <div class="card">
+          <div class="item txt-centralizado">
+            <p>Informe a quantidade</p>
+            <p>e confirme este pedido.</p>
+            <br />
+            <h2>{{item.nome}}</h2>
+            <p><h-number value="input.quant" min="1" max="100" step="1"></h-number></p>
+          </div>
+          <div class="margem-imagem"></div>
+        </div>
+        <div class="bar bar-footer">
+          <div class="button-bar">
+           <button class="button icon-right ion-checkmark button-positive"  ng-click="pedir()">Pedir</button>
+           <button class="button icon-right ion-checkmark button-assertive"  ng-click="fechaModal()">Cancelar</button>
+          </div>
+        </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    <!-- Fim/Modal -->
+
+  	<div class="card">
+  		<div class="item">
+  			<h1>{{item.nome}}</h1>
+  			<!-- <img src="http://www.abgsolucoes.com.br/publico/noimage.png" width="100%"> -->
+        <div class="card">
+          <img class="centralizar-imagem margem-imagem" src="{{item.imagem}}" width="60%">
+        </div>
+  			<p>Descrição:</p>
+  			<div class="item item-text-wrap">
+  				<p>
+  				{{item.descricao}}
+  				</p>
+  			</div>
+  			<p>Preço: R$ {{item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}</p>
+  		</div>
+    </div>
+
+  
+
+
+    <div class="item">
+    <div class="bar bar-footer">
+   		 <button class="button icon-right ion-checkmark button-positive button-full"  ng-click="abreModal()">Pedir</button>
+  	</div>
+  	</div>
+
+    
+
+
+  </ion-content>
+
+
+  
+</ion-view>

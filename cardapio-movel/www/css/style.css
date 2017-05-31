@@ -1,0 +1,27 @@
+/* Empty. Add your own CSS if you like */
+.txt-centralizado{
+	text-align: center
+}
+.txt-espaco{
+	margin: 70px 0 70px 0 !important;
+}
+
+.centralizar-imagem{
+	margin-left: 20%;
+}
+
+.margem-imagem{
+	padding:1em;
+}
+
+.color-canDown-true, .color-canUp-true{
+  background-color: #eeeeee !important;
+}
+
+
+.bt-camera {
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 80%;
+    max-width: 80%;
+}

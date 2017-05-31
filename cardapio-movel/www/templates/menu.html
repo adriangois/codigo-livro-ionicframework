@@ -1,0 +1,136 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+      <!-- Modificação da posição do badge. A melhor prática diz que este trecho deve estar no arquivo style.css,
+      mas para efeito didático, colocamos dentro do html. -->
+      <style>
+        .button .badge {
+          top: -36px;
+        }
+      </style>
+      <ion-nav-buttons side="right">
+      <!-- Botão que direcionará para a listagem de pedidos. -->
+        <button ng-click="abreModal()" class="button button-icon button-clear ion-information-circled">
+          <!-- Bagde com número de pedidos -->
+          <span class="badge badge-assertive">{{bandeja.length}}</span>
+        </button>  
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+
+  
+  <ion-side-menu side="left">
+
+
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content>
+    
+      <ion-list>
+        <ion-item menu-close href="#/app/bebidas">
+          Bebidas
+        </ion-item>
+        <ion-item menu-close href="#/app/petiscos">
+          Petiscos
+        </ion-item>
+        <ion-item menu-close href="#/app/sucos">
+          Sucos
+        </ion-item>
+        <ion-item menu-close href="#/app/conta" ng-click="calcularConta()">
+          Conta
+        </ion-item>
+        <ion-item menu-close href="#/app/camera">
+          Camera
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+    <!-- Modal -->
+    <script id="bandeja.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-content>
+        <div class="card">
+          <div class="item txt-centralizado">
+            <div class="row">
+                <div class="col">
+                  Quantidade
+                </div>
+                <div class="col">
+                  Item
+                </div>
+                <div class="col">
+                  Valor
+                </div>
+            </div>
+
+            <ion-list ng-repeat="it in bandeja" >
+              <ion-radio  ng-value="bandeja.indexOf(it)" 
+                          ng-model="data.item">
+                 <div class="row">
+                  <div class="col">
+                   {{it.quantidade}} 
+                  </div>
+                  <div class="col">
+                    {{it.item.nome}}
+                  </div>
+                  <div class="col">
+                    {{it.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}}
+                  </div>
+                 </div>
+              </ion-radio>
+            </ion-list>
+            <br />
+          </div>
+          <div class="margem-imagem"></div>
+        </div>
+        <div class="bar bar-footer">
+          <div class="button-bar">
+           <button class="button  button-positive"  ng-click="pedir()"><i class=" ion-ios-checkmark-outline"></i></button>
+           <button class="button  button-dark"  ng-click="editarItem()"><i class="ion-edit"></i></button>
+           <button class="button" ng-click="removerItem()"><i class="ion-ios-trash-outline"></i></button>
+           <button class="button  button-assertive"  ng-click="fechaModal()"><i class="ion-ios-undo-outline"></i></button>
+          </div>
+        </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    <!-- Fim/Modal -->
+
+
+    <!-- Modal Edição -->
+    <script id="modal-edicao.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-content>
+        <div class="card">
+          <div class="item txt-centralizado">
+            <p>Informe a quantidade</p>
+            <p>e confirme este pedido.</p>
+            <br />
+            <h2>{{item.nome}}</h2>
+            <p><h-number value="input.quant" min="1" max="100" step="1"></h-number></p>
+          </div>
+          <div class="margem-imagem"></div>
+        </div>
+        <div class="bar bar-footer">
+          <div class="button-bar">
+           <button class="button icon-right ion-checkmark button-positive"  ng-click="confirmarEdicao()">Confirmar</button>
+           <button class="button icon-right ion-checkmark button-assertive"  ng-click="cancelarEdicao()">Cancelar</button>
+          </div>
+        </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    <!-- Fim/Modal -->
+
+</ion-side-menus>
